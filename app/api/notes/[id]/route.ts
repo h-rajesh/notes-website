@@ -14,14 +14,14 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         }
     
         const updatedNote = await prisma.note.update({
-            where: { id: resolvedParams.id },
+            where: { id: parseInt(resolvedParams.id, 10) },
             data: {
                 title,
                 content
             }
         })
         return NextResponse.json(updatedNote)
-    } catch(error){
+    } catch(err){
         return NextResponse.json({msg:"Internal server error"}, {status:500})
     }
     }
@@ -34,7 +34,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     }   
 
     const deletedNote = await prisma.note.delete({
-        where:{id:resolvedParams.id}
+        where:{id:parseInt(resolvedParams.id, 10)}
     })
     return NextResponse.json(deletedNote)
 }
