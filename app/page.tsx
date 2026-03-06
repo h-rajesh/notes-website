@@ -42,7 +42,7 @@ const ConfirmDialog = ({ onConfirm, onCancel }: { onConfirm: () => void; onCance
       onClick={e => e.stopPropagation()}
     >
       <p className="font-display text-lg font-bold text-[#1a1208] mb-1">Delete this note?</p>
-      <p className="text-sm text-[#8a7a65] font-body mb-6">This can't be undone.</p>
+      <p className="text-sm text-[#8a7a65] font-body mb-6">This can&apos;t be undone.</p>
       <div className="flex gap-2">
         <button onClick={onCancel}  className="flex-1 py-2.5 rounded-xl border border-[#ddd4c4] text-[#8a7a65] font-mono text-[11px] tracking-wider uppercase hover:border-[#c8b89a] transition-colors">Cancel</button>
         <button onClick={onConfirm} className="flex-1 py-2.5 rounded-xl bg-[#c0392b] text-white font-mono text-[11px] tracking-wider uppercase hover:bg-[#a93226] transition-colors">Delete</button>
