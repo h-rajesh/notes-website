@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
-type Note = { id: string; title: string; content: string; createdAt: string };
+type Note = { id: number; title: string; content: string; createdAt: string };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const relativeTime = (iso: string) => {
@@ -83,12 +83,12 @@ const NoteRow = ({
 export default function NotesPage() {
   const [notes, setNotes]           = useState<Note[]>([]);
   const [loading, setLoading]       = useState(true);
-  const [activeId, setActiveId]     = useState<string | null>(null);
+  const [activeId, setActiveId]     = useState<number | null>(null);
   const [editing, setEditing]       = useState(false);
   const [creating, setCreating]     = useState(false);
   const [search, setSearch]         = useState("");
   const [toast, setToast]           = useState<string | null>(null);
-  const [confirmId, setConfirmId]   = useState<string | null>(null);
+  const [confirmId, setConfirmId]   = useState<number | null>(null);
   const [draft, setDraft]           = useState({ title: "", content: "" });
   const [saving, setSaving]         = useState(false);
   const [mobileSide, setMobileSide] = useState(true); // mobile: show sidebar or detail
@@ -189,7 +189,7 @@ export default function NotesPage() {
   };
 
   // ── Delete ──
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     const res = await fetch(`/api/notes/${id}`, { method: "DELETE" });
     if (res.ok) {
       const remaining = notes.filter(n => n.id !== id);
@@ -201,7 +201,7 @@ export default function NotesPage() {
     }
   };
 
-  const selectNote = (id: string) => {
+  const selectNote = (id: number) => {
     setActiveId(id);
     setEditing(false);
     setCreating(false);
