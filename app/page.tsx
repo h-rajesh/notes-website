@@ -104,11 +104,24 @@ export default function NotesPage() {
   const fetchNotes = useCallback(async () => {
     try {
       const res = await fetch("/api/notes");
+      
+      if (!res.ok) {
+        throw new Error("Failed to fetch notes from server");
+      }
+      
       const data: Note[] = await res.json();
+      
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid format received from server");
+      }
+      
       setNotes(data);
       if (!activeId && data.length) setActiveId(data[0].id);
-    } catch { showToast("Couldn't load notes."); }
-    finally { setLoading(false); }
+    } catch (error) { 
+      showToast("Couldn't load notes."); 
+    } finally { 
+      setLoading(false); 
+    }
   }, [activeId]);
 
   useEffect(() => { fetchNotes(); }, []);
